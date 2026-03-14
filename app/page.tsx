@@ -1,65 +1,81 @@
-import { AppShell } from '@/components/app-shell';
+import Link from 'next/link';
+
 import { MetricCard } from '@/components/metric-card';
 import { ModuleCard } from '@/components/module-card';
-import { PageHeader } from '@/components/page-header';
-import { SectionPanel } from '@/components/section-panel';
-import { dashboardSummary, leaseAlerts, modules, properties, workOrders } from '@/lib/mock-data';
+import { PublicSiteShell } from '@/components/public-site-shell';
+import { dashboardSummary, modules } from '@/lib/mock-data';
 
 export default function HomePage() {
   return (
-    <AppShell>
-      <section className="hero">
-        <div className="hero-panel hero-copy-panel">
-          <PageHeader
-            eyebrow="重做，不重演舊技術債"
-            title="taipeimetrohouse-2"
-            description="新版先把物業營運的核心流程整理清楚，再把房源、工單、租約與帳務逐步接回。第一輪目標是做出能討論、能演示、能繼續長的 MVP。"
-          />
+    <PublicSiteShell>
+      <section className="marketing-hero">
+        <p className="eyebrow">公開首頁</p>
+        <h1>對外展示與內部管理，從這版開始切開</h1>
+        <p className="hero-copy">
+          公司簡介、房型介紹這些內容不需要登入就能看；房源、工單、租約與設定等管理功能，
+          則改成登入後才進入內部系統。
+        </p>
+        <div className="hero-actions">
+          <Link className="primary-button" href="/about">
+            看公司簡介
+          </Link>
+          <Link className="ghost-button" href="/login">
+            進入登入畫面
+          </Link>
         </div>
+      </section>
+
+      <section className="hero">
         <div className="hero-panel">
-          <h2>第一波目標</h2>
+          <h2>目前第一波目標</h2>
           <div className="metric-grid">
             {dashboardSummary.map((item) => (
               <MetricCard key={item.label} metric={item} />
             ))}
           </div>
         </div>
+        <div className="hero-panel">
+          <h2>公開站先放什麼</h2>
+          <div className="check-list">
+            <p>1. 公司簡介</p>
+            <p>2. 房型介紹</p>
+            <p>3. 登入與建立帳號入口</p>
+          </div>
+        </div>
       </section>
 
-      <SectionPanel title="模組切分" description="先把未來會長大的地方分清楚，免得又變回巨型 HTML 墳場。">
+      <section className="section-block">
+        <div className="section-heading">
+          <h2>登入後的內部模組</h2>
+          <p>下面這些頁面改成登入後才開放。</p>
+        </div>
         <div className="module-grid">
           {modules.map((module) => (
             <ModuleCard key={module.slug} module={module} />
           ))}
         </div>
-      </SectionPanel>
+      </section>
 
-      <div className="split-grid">
-        <SectionPanel title="目前 mock 狀態" description="先用幾筆代表性資料測試資訊架構。">
-          <div className="mini-grid">
-            <article className="mini-card">
-              <strong>{properties.length} 棟房源</strong>
-              <p>已整理空房、到期與管理人資訊。</p>
-            </article>
-            <article className="mini-card">
-              <strong>{workOrders.length} 筆工單</strong>
-              <p>任務、修繕、清潔都收斂到同一個模型。</p>
-            </article>
-            <article className="mini-card">
-              <strong>{leaseAlerts.length} 份租約提醒</strong>
-              <p>先抓出近期到期，後續再補續約流程。</p>
-            </article>
-          </div>
-        </SectionPanel>
-
-        <SectionPanel title="接下來該做什麼" description="這一版的優先順序已經先定住。">
-          <div className="check-list">
-            <p>1. 補 `Property / Room / Lease / WorkOrder` 詳細型別與詳情頁。</p>
-            <p>2. 把 mock data 抽成可替換的 server-side data layer。</p>
-            <p>3. 先做房源與工單的 CRUD，再往租約與帳務延伸。</p>
-          </div>
-        </SectionPanel>
-      </div>
-    </AppShell>
+      <section className="section-block">
+        <div className="section-heading">
+          <h2>這版新增的角色規則</h2>
+          <p>先把你要求的權限結構實作進去。</p>
+        </div>
+        <div className="mini-grid">
+          <article className="mini-card">
+            <strong>公開頁免登入</strong>
+            <p>公司簡介、房型介紹等對外展示內容直接開放瀏覽。</p>
+          </article>
+          <article className="mini-card">
+            <strong>最高權限帳號</strong>
+            <p>`metroclaw168@gmail.com` 為目前最高權限，未來可改設定來源。</p>
+          </article>
+          <article className="mini-card">
+            <strong>登入 / 註冊入口</strong>
+            <p>已加入建立帳號與登入畫面，先用前端 mock 流程驗證體驗。</p>
+          </article>
+        </div>
+      </section>
+    </PublicSiteShell>
   );
 }

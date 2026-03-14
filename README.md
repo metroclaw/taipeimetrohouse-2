@@ -31,6 +31,8 @@
 - 模組分區（dashboard / properties / tasks / leases / finance / settings）
 - Dashboard / Properties / Tasks / Leases 四個可展示頁面
 - 共用 mock data、domain types 與基礎 UI shell
+- 公開頁（首頁 / 公司簡介 / 房型介紹）
+- 登入 / 建立帳號畫面與前端角色切分
 - 功能盤點與 MVP 文件
 
 ## 快速開始
@@ -45,10 +47,21 @@ npm run dev
 ## 目前路由
 
 - `/`：產品定位與模組入口
+- `/about`：公司簡介，公開可看
+- `/room-types`：房型介紹，公開可看
+- `/login`：登入頁
+- `/register`：建立帳號頁
 - `/dashboard`：待辦、逾期、空房、租約提醒總覽
 - `/properties`：房源卡片總覽
 - `/tasks`：工單模型展示
 - `/leases`：近期到期租約提醒
+- `/settings`：最高權限設定入口（superadmin only）
+
+## 目前權限規則
+
+- 公開頁不需登入即可瀏覽
+- `metroclaw168@gmail.com` 為目前最高權限帳號
+- 目前登入/註冊為前端 mock 流程，後續可接正式 auth / database
 
 ## 部署
 

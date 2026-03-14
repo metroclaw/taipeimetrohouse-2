@@ -24,6 +24,98 @@ html, body {
 
 a { color: inherit; text-decoration: none; }
 
+button,
+input {
+  font: inherit;
+}
+
+input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--text);
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+.public-shell {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(196, 118, 74, 0.16), transparent 24%),
+    linear-gradient(180deg, #f6efe2 0%, #eef2ea 52%, #e8eee7 100%);
+}
+
+.public-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 32px 0;
+}
+
+.public-brand {
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.public-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.public-nav-link,
+.ghost-button,
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-weight: 700;
+}
+
+.public-nav-link,
+.ghost-button {
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(216, 221, 206, 0.9);
+}
+
+.primary-button {
+  background: var(--brand);
+  color: #f5faf4;
+}
+
+.public-main {
+  padding: 28px 32px 40px;
+}
+
+.marketing-hero {
+  padding: 28px 0 8px;
+  max-width: 880px;
+}
+
+.marketing-hero h1,
+.auth-copy h1 {
+  margin: 0 0 16px;
+  font-size: clamp(2.4rem, 4vw, 4.4rem);
+  line-height: 0.96;
+  font-family: Georgia, "Noto Serif TC", serif;
+  letter-spacing: -0.04em;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
 .shell {
   min-height: 100vh;
   display: grid;
@@ -74,6 +166,31 @@ a { color: inherit; text-decoration: none; }
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.sidebar-account {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  display: grid;
+  gap: 8px;
+}
+
+.sidebar-account-label {
+  margin: 0;
+  color: rgba(237, 245, 238, 0.7);
+  font-size: 0.82rem;
+}
+
+.sidebar-account strong,
+.sidebar-account span {
+  display: block;
+}
+
+.sidebar-account span {
+  color: rgba(237, 245, 238, 0.72);
+  font-size: 0.92rem;
+  line-height: 1.5;
 }
 
 .main {
@@ -187,6 +304,11 @@ a { color: inherit; text-decoration: none; }
   padding-left: 18px;
   color: var(--muted);
   line-height: 1.6;
+}
+
+.module-card .module-slug,
+.property-card .module-slug {
+  color: var(--muted);
 }
 
 .metric-grid,
@@ -340,6 +462,48 @@ a { color: inherit; text-decoration: none; }
   margin-top: 24px;
 }
 
+.auth-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 24px;
+  align-items: start;
+  padding-top: 20px;
+}
+
+.auth-copy {
+  padding-top: 12px;
+}
+
+.auth-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  padding: 24px;
+  display: grid;
+  gap: 16px;
+}
+
+.form-field {
+  display: grid;
+  gap: 8px;
+}
+
+.form-field span,
+.form-hint,
+.form-error {
+  color: var(--muted);
+}
+
+.form-error {
+  color: #ab3f2f;
+  margin: 0;
+}
+
+.form-hint {
+  margin: 0;
+}
+
 @media (max-width: 980px) {
   .shell,
   .hero,
@@ -347,7 +511,8 @@ a { color: inherit; text-decoration: none; }
   .metric-grid,
   .mini-grid,
   .property-grid,
-  .split-grid {
+  .split-grid,
+  .auth-layout {
     grid-template-columns: 1fr;
   }
 
@@ -367,6 +532,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (max-width: 640px) {
+  .public-header,
+  .public-main,
   .main,
   .sidebar {
     padding: 20px;
