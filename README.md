@@ -50,6 +50,11 @@ npm run dev
 - `/tasks`：工單模型展示
 - `/leases`：近期到期租約提醒
 
+## 部署
+
+- 已加入 GitHub Pages workflow
+- `main` push 後會自動輸出靜態站並部署到 Pages
+
 ## 可用指令
 
 ```bash
