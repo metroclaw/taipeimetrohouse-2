@@ -100,6 +100,55 @@ button {
   max-width: 880px;
 }
 
+.legacy-hero {
+  position: relative;
+  min-height: 560px;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(216, 221, 206, 0.72);
+  box-shadow: var(--shadow);
+  margin-top: 12px;
+}
+
+.legacy-hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.legacy-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(16, 31, 25, 0.82) 0%, rgba(23, 44, 35, 0.6) 38%, rgba(23, 44, 35, 0.2) 100%);
+}
+
+.legacy-hero-copy {
+  position: relative;
+  z-index: 1;
+  color: #f4f6f1;
+  padding: 44px;
+  max-width: 720px;
+}
+
+.legacy-hero-copy .hero-copy,
+.legacy-hero-copy .eyebrow {
+  color: #edf5ee;
+}
+
+.legacy-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.42);
+}
+
 .marketing-hero h1,
 .auth-copy h1 {
   margin: 0 0 16px;
@@ -462,6 +511,28 @@ button {
   margin-top: 24px;
 }
 
+.legacy-team-card,
+.legacy-contact-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.legacy-team-card img,
+.legacy-contact-card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+}
+
+.legacy-team-card div,
+.legacy-contact-card .check-list {
+  padding: 20px;
+}
+
 .auth-layout {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
@@ -544,7 +615,15 @@ button {
   .property-card,
   .callout,
   .metric-card,
-  .mini-card {
+  .mini-card,
+  .legacy-team-card,
+  .legacy-contact-card,
+  .auth-card,
+  .legacy-hero {
     border-radius: 20px;
+  }
+
+  .legacy-hero-copy {
+    padding: 24px;
   }
 }
