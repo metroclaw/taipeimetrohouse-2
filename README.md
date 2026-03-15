@@ -10,17 +10,12 @@
 - 降低單頁塞滿邏輯、直接綁 Firebase SDK 的技術債
 - 建立可逐步演進成內部營運平台的基礎架構
 
-## 建議技術棧
+## 目前技術定位
 
 - **Next.js 15 + React 19 + TypeScript**
-  - 同時處理前台/後台頁面與後續 API
-  - 元件化、路由與資料抓取方式一致，重構成本低
-- **CSS variables + 極簡全域樣式**
-  - 第一版先求穩，避免 UI 工具鏈過重
-- **Zod**
-  - 後續做表單與 API 驗證時可直接延用
-- **未來建議資料層：PostgreSQL + Prisma / Supabase**
-  - 比舊版直接把資料散在 Firebase Realtime Database 更容易治理
+- 目前先以 **static export** 方式輸出前端 shell
+- 部署路徑改為 **GitHub CI/CD → Firebase Hosting**
+- 目前資料與 auth 仍是 mock，正式 Firebase 資料層與權限層會在後續階段補上
 
 ## 目前範圍
 
@@ -61,12 +56,28 @@ npm run dev
 
 - 公開頁不需登入即可瀏覽
 - `metroclaw168@gmail.com` 為目前最高權限帳號
-- 目前登入/註冊為前端 mock 流程，後續可接正式 auth / database
+- 目前登入/註冊為前端 mock 流程，後續會改成正式 auth
+- 目前前端內建示範帳密僅供 prototype 使用，不可視為正式上線方案
 
 ## 部署
 
-- 已加入 GitHub Pages workflow
-- `main` push 後會自動輸出靜態站並部署到 Pages
+目前部署方式：
+
+- `main` push 後由 GitHub Actions 執行 CI/CD
+- workflow 會跑 `npm ci`、`npm run lint`、`npm run typecheck`、`npm run build`
+- Next.js 會輸出靜態站到 `out/`
+- GitHub Actions 再把 `out/` 部署到 Firebase Hosting
+
+相關檔案：
+
+- `firebase.json`
+- `.firebaserc`
+- `.github/workflows/deploy-firebase-hosting.yml`
+- `docs/deployment.md`
+
+GitHub repo 需設定 secret：
+
+- `FIREBASE_TOKEN`
 
 ## 可用指令
 
@@ -77,14 +88,26 @@ npm run lint
 npm run typecheck
 ```
 
+## 當前限制
+
+目前 repo 仍採 `output: 'export'`，所以：
+
+- 還沒有 Next.js API routes
+- 還沒有 server actions
+- 還沒有 `/api/assistant` 代理
+- 還沒有正式 Firebase auth / Firestore / Drive metadata 流程
+
+這代表目前上線的是前端靜態殼，不是完整營運系統。
+
 ## 建議開發順序
 
-1. 定義資料模型與角色權限
-2. 先做「房源管理 + 任務管理」MVP
-3. 再補「租約 / 帳務 / 通知 / 檔案」
-4. 最後串接報表、自動提醒與電子簽約
+1. 補齊 Firebase Hosting 部署與 repo 文件
+2. 對齊正式 domain model（lease / work_order / assignment / attachment / audit_log）
+3. 定義後端 API contract
+4. 再接 Firebase auth、Firestore、Drive 與 assistant proxy
 
 ## 文件
 
 - `docs/discovery.md`：舊專案功能拆解、使用者流程、資料模型與 MVP 建議
 - `docs/architecture.md`：新專案模組規劃
+- `docs/deployment.md`：目前部署方式與限制
