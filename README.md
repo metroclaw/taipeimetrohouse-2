@@ -67,6 +67,7 @@ npm run dev
 - workflow 會跑 `npm ci`、`npm run lint`、`npm run typecheck`、`npm run build`
 - Next.js 會輸出靜態站到 `out/`
 - GitHub Actions 再把 `out/` 部署到 Firebase Hosting
+- Firebase Hosting site 明確綁定為 `taipeimetrohouse-2`，避免 CI target resolution 模糊
 
 相關檔案：
 

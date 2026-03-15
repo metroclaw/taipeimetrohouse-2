@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "taipeimetrohouse-2",
     "public": "out",
     "ignore": [
       "firebase.json",

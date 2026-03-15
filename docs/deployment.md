@@ -59,3 +59,5 @@ npm run build
 ```
 
 Build output should land in `out/` and match the Firebase Hosting `public` directory setting in `firebase.json`.
+
+The hosting config also pins the site explicitly to `taipeimetrohouse-2` so CI deploys do not rely on implicit target resolution.
