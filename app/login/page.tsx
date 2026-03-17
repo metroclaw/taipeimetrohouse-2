@@ -1,77 +1,81 @@
 'use client';
 
-import Link from 'next/link';
+import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { FormEvent, useEffect, useState } from 'react';
-
-import { PublicSiteShell } from '@/components/public-site-shell';
-import { useAuth } from '@/components/auth-provider';
-import { SUPER_ADMIN_EMAIL, SUPER_ADMIN_PASSWORD } from '@/lib/auth-config';
+import { useAuth } from '../../hooks/useAuth';
 
 export default function LoginPage() {
   const router = useRouter();
-  const { login } = useAuth();
-  const [email, setEmail] = useState(SUPER_ADMIN_EMAIL);
-  const [password, setPassword] = useState(SUPER_ADMIN_PASSWORD);
-  const [error, setError] = useState('');
-  const [nextPath, setNextPath] = useState('/dashboard');
+  const { user, login, register } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [isRegistering, setIsRegistering] = useState(false);
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    setNextPath(params.get('next') || '/dashboard');
-  }, []);
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const result = login(email, password);
-
-    if (!result.ok) {
-      setError(result.message ?? '登入失敗');
-      return;
+    try {
+      if (isRegistering) {
+        await register(email, password, { name, phone });
+      } else {
+        await login(email, password);
+      }
+      setError(null);
+      router.push('/dashboard');
+    } catch (err: any) {
+      setError(err.message || (isRegistering ? '註冊失敗' : '登入失敗'));
     }
+  }
 
-    router.push(nextPath);
+  if (user) {
+    router.push('/dashboard');
+    return null;
   }
 
   return (
-    <PublicSiteShell>
-      <section className="auth-layout">
-        <div className="auth-copy">
-          <p className="eyebrow">登入</p>
-          <h1>進入內部管理區</h1>
-          <p className="hero-copy">
-            公司簡介、房型介紹這些公開內容不需要登入；房源、工單、租約等管理功能則改成登入後可看。
-          </p>
-          <div className="callout">
-            <h2>最高權限示範帳號</h2>
-            <p>{SUPER_ADMIN_EMAIL}</p>
-            <p>密碼：{SUPER_ADMIN_PASSWORD}</p>
-          </div>
-        </div>
-
-        <form className="auth-card" onSubmit={handleSubmit}>
-          <label className="form-field">
-            <span>Email</span>
-            <input value={email} onChange={(event) => setEmail(event.target.value)} type="email" />
-          </label>
-          <label className="form-field">
-            <span>密碼</span>
+    <div>
+      <h1>{isRegistering ? '建立帳號' : '登入'}</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="密碼"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        {isRegistering && (
+          <>
             <input
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              type="password"
+              type="text"
+              placeholder="姓名"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
             />
-          </label>
-          {error ? <p className="form-error">{error}</p> : null}
-          <button className="primary-button" type="submit">
-            登入
-          </button>
-          <p className="form-hint">
-            還沒有帳號？
-            <Link href="/register"> 先建立帳號</Link>
-          </p>
-        </form>
-      </section>
-    </PublicSiteShell>
+            <input
+              type="tel"
+              placeholder="電話"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              required
+            />
+          </>
+        )}
+        <button type="submit">{isRegistering ? '註冊' : '登入'}</button>
+      </form>
+      <button onClick={() => setIsRegistering(!isRegistering)}>
+        {isRegistering ? '已有帳號？登入' : '還沒有帳號？註冊'}
+      </button>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+    </div>
   );
 }
