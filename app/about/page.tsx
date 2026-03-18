@@ -8,7 +8,7 @@ export default function AboutPage() {
       <h1 style={{ textAlign: 'center', marginBottom: '24px' }}>公司簡介</h1>
       <section style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '20px' }}>
         <Image
-          src="/company-logo.png"
+          src="/legacy/logo.jpg"
           alt="公司標誌"
           width={120}
           height={120}
@@ -20,17 +20,17 @@ export default function AboutPage() {
       </section>
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
         <div style={{ textAlign: 'center' }}>
-          <Image src="/icon-speed.svg" alt="高效" width={60} height={60} />
+          <Image src="/legacy/icon-speed.svg" alt="高效" width={60} height={60} />
           <h3>高效</h3>
           <p>優化流程，提升工作效率，節省時間成本。</p>
         </div>
         <div style={{ textAlign: 'center' }}>
-          <Image src="/icon-security.svg" alt="安全" width={60} height={60} />
+          <Image src="/legacy/icon-security.svg" alt="安全" width={60} height={60} />
           <h3>安全</h3>
           <p>採用多層防護，保障用戶資料安全。</p>
         </div>
         <div style={{ textAlign: 'center' }}>
-          <Image src="/icon-support.svg" alt="支援" width={60} height={60} />
+          <Image src="/legacy/icon-support.svg" alt="支援" width={60} height={60} />
           <h3>支援</h3>
           <p>全天候技術支援，快速解決問題。</p>
         </div>
