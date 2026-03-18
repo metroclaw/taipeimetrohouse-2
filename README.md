@@ -109,6 +109,83 @@ npm run typecheck
 
 ## 文件
 
+### 工單提醒與租約提醒資料結構與狀態字典
+
+以下為建議的 Firebase 資料結構與狀態字典設計：
+
+1. 工單提醒 (WorkOrderAlert)
+- id: string (工單編號)
+- propertyId: string (所屬物業id)
+- description: string (工單描述)
+- status: string (狀態，可用值：pending, inProgress, completed, cancelled)
+- createdAt: timestamp (建立時間)
+- updatedAt: timestamp (最後更新時間)
+- dueDate: timestamp (預計完成日期)
+- assignedTo: string (負責人員id)
+
+狀態字典：
+- pending: 待處理
+- inProgress: 進行中
+- completed: 已完成
+- cancelled: 已取消
+
+2. 租約提醒 (LeaseAlert)
+- id: string (提醒編號)
+- propertyId: string (所屬物業id)
+- leaseId: string (租約編號)
+- tenantName: string (租戶名稱)
+- status: string (狀態，可用值：active, expiringSoon, expired, renewed)
+- leaseStart: timestamp (租約開始日期)
+- leaseEnd: timestamp (租約結束日期)
+- alertSent: boolean (是否已發送提醒)
+- createdAt: timestamp (建立時間)
+- updatedAt: timestamp (最後更新時間)
+
+狀態字典：
+- active: 正常中
+- expiringSoon: 即將到期
+- expired: 已過期
+- renewed: 已續約
+
+---
+
+請參考以上結構執行開發與測試。
+
+## 前端介面設計方案草稿
+
+本專案工單提醒（WorkOrderAlert）與租約提醒（LeaseAlert）前端介面涵蓋以下主要模塊與頁面：
+
+1. 提醒總覽頁（Dashboard）
+- 總覽所有工單與租約提醒狀態統計
+- 快速過濾：待處理、進行中、即將到期等
+- 提醒待辦清單快速存取
+
+2. 工單提醒頁（Tasks）
+- 工單列表：顯示工單基本資訊、狀態、負責人
+- 詳細頁：查看工單詳情及編輯狀態
+- 狀態更新：透過按鈕或選單操作狀態變更
+- 建立新工單提醒（表單）
+
+3. 租約提醒頁（Leases）
+- 租約提醒列表：顯示租戶、租約狀態、到期日
+- 詳細頁：租約詳情及狀態更新
+- 租約續約、提醒發送操作
+
+4. 資料同步與狀態管理
+- 與 Firebase API 連接，取得實時數據
+- 使用 React Context / Redux 管理全局狀態
+- 錯誤與載入狀態提示
+
+5. 使用者體驗與交互
+- 清晰的狀態標示及顏色區分
+- 操作前提示與確認對話框
+- 響應式設計，支持主要桌機與行動裝置
+
+---
+
+請根據此方案進行界面實作和測試。
+
+
 - `docs/discovery.md`：舊專案功能拆解、使用者流程、資料模型與 MVP 建議
 - `docs/architecture.md`：新專案模組規劃
 - `docs/deployment.md`：目前部署方式與限制

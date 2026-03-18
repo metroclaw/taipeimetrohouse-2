@@ -16,11 +16,11 @@ export function ModuleCard({ module }: { module: ModuleDefinition }) {
       </div>
       <p>{module.description}</p>
       <ul>
-        {module.bullets.map((bullet) => (
+        {module.bullets?.map((bullet) => (
           <li key={bullet}>{bullet}</li>
         ))}
       </ul>
-      <Link className="text-link" href={module.href}>
+      <Link className="text-link" href={module.href ?? '#'}>
         打開模組
       </Link>
     </article>

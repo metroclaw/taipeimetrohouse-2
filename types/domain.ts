@@ -1,23 +1,4 @@
-export type ModuleStatus = 'mvp' | 'planned';
-
-export type ModuleDefinition = {
-  slug: string;
-  title: string;
-  description: string;
-  status: ModuleStatus;
-  href: string;
-  bullets: string[];
-};
-
-export type SummaryMetric = {
-  label: string;
-  value: string;
-  tone?: 'default' | 'good' | 'warn';
-};
-
-export type PropertyStatus = 'occupied' | 'vacant' | 'maintenance';
-
-export type PropertyCard = {
+export interface PropertyCard {
   id: string;
   name: string;
   district: string;
@@ -25,30 +6,64 @@ export type PropertyCard = {
   rooms: number;
   vacantRooms: number;
   manager: string;
-  status: PropertyStatus;
+  status: 'occupied' | 'vacant' | 'maintenance';
   nextLeaseExpiry: string;
-};
+}
 
-export type WorkOrderType = 'task' | 'repair' | 'cleaning';
-export type WorkOrderStatus = 'todo' | 'in_progress' | 'done';
-
-export type WorkOrder = {
+export interface WorkOrder {
   id: string;
   title: string;
   propertyName: string;
   roomCode: string;
   assignee: string;
   dueDate: string;
-  type: WorkOrderType;
-  status: WorkOrderStatus;
+  type: 'repair' | 'cleaning' | 'task';
+  status: 'todo' | 'in_progress' | 'done';
   fee?: number;
-};
+}
 
-export type LeaseAlert = {
+export interface WorkOrderAlert {
+  id: string;
+  propertyId: string;
+  description: string;
+  status: 'pending' | 'inProgress' | 'completed' | 'cancelled';
+  createdAt: Date;
+  updatedAt: Date;
+  dueDate: Date;
+  assignedTo: string;
+}
+
+export interface LeaseAlert {
   id: string;
   tenantName: string;
-  propertyName: string;
-  roomCode: string;
-  endDate: string;
-  monthlyRent: number;
-};
+  status: 'active' | 'expiringSoon' | 'expired' | 'renewed';
+  leaseId?: string;
+  propertyId?: string;
+  propertyName?: string;
+  roomCode?: string;
+  leaseStart?: string | Date;
+  leaseEnd?: string | Date;
+  endDate?: string;
+  monthlyRent?: number;
+  alertSent?: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface SummaryMetric {
+  label: string;
+  value: number | string;
+  tone?: string;
+}
+
+export interface ModuleDefinition {
+  id?: string;
+  slug: string;
+  title: string;
+  name?: string;
+  description?: string;
+  active?: boolean;
+  status: 'mvp' | 'planned' | 'experimental';
+  bullets?: string[];
+  href?: string;
+}

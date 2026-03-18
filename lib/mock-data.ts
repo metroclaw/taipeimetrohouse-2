@@ -149,6 +149,7 @@ export const leaseAlerts: LeaseAlert[] = [
     roomCode: 'B3',
     endDate: '2026-03-29',
     monthlyRent: 21500,
+    status: 'expiringSoon',
   },
   {
     id: 'L-1002',
@@ -157,6 +158,7 @@ export const leaseAlerts: LeaseAlert[] = [
     roomCode: 'A8',
     endDate: '2026-04-08',
     monthlyRent: 19800,
+    status: 'active',
   },
   {
     id: 'L-1003',
@@ -165,5 +167,6 @@ export const leaseAlerts: LeaseAlert[] = [
     roomCode: 'C4',
     endDate: '2026-04-15',
     monthlyRent: 22800,
+    status: 'active',
   },
 ];

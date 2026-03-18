@@ -1,19 +1,14 @@
-import './globals.css';
-import type { Metadata } from 'next';
 import { ReactNode } from 'react';
-
-import { AuthProvider } from '@/components/auth-provider';
-
-export const metadata: Metadata = {
-  title: 'Taipei Metro House 2',
-  description: 'Property operations platform rebuild for Taipei Metro House.',
-};
+import { AlertProvider } from '@/context/AlertContext';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="zh-Hant">
+    <html lang="zh-TW">
+      <head>
+        <title>台北都會物業管理系統</title>
+      </head>
       <body>
-        <AuthProvider>{children}</AuthProvider>
+        <AlertProvider>{children}</AlertProvider>
       </body>
     </html>
   );
