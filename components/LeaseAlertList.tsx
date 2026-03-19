@@ -28,9 +28,7 @@ const LeaseAlertList: React.FC<Props> = ({ leaseAlerts, onStatusChange }) => {
             <div>
               <strong>{alert.tenantName}</strong> (狀態: {alert.status})
             </div>
-            <div>
-              租期: {formatDate(alert.leaseStart)} - {formatDate(alert.leaseEnd ?? alert.endDate)}
-            </div>
+            <div>租期: {formatDate(alert.leaseStart)} - {formatDate(alert.leaseEnd)}</div>
             <select
               value={alert.status}
               onChange={(e) =>

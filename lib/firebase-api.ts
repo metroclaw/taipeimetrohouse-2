@@ -34,13 +34,34 @@ const leaseAlertCollection = 'leaseAlerts';
 type WorkOrderAlertDoc = Omit<WorkOrderAlert, 'id'>;
 type LeaseAlertDoc = Omit<LeaseAlert, 'id'>;
 
+const toDate = (value: unknown): Date => {
+  if (!value) return new Date();
+  // Firestore Timestamp 物件
+  // @ts-expect-error 動態偵測 toDate
+  if (typeof value === 'object' && typeof value.toDate === 'function') {
+    // @ts-expect-error Firestore Timestamp
+    return value.toDate();
+  }
+  if (typeof value === 'string' || typeof value === 'number') {
+    return new Date(value);
+  }
+  return value as Date;
+};
+
 export async function getWorkOrders(): Promise<WorkOrderAlert[]> {
   const q = query(collection(db, workOrderCollection));
   const querySnapshot = await getDocs(q);
   const results: WorkOrderAlert[] = [];
   querySnapshot.forEach((docSnap) => {
-    const data = docSnap.data() as WorkOrderAlertDoc;
-    results.push({ id: docSnap.id, ...data });
+    const raw = docSnap.data() as WorkOrderAlertDoc;
+    const data: WorkOrderAlert = {
+      id: docSnap.id,
+      ...raw,
+      createdAt: toDate(raw.createdAt),
+      updatedAt: toDate(raw.updatedAt),
+      dueDate: toDate(raw.dueDate),
+    };
+    results.push(data);
   });
   return results;
 }
@@ -55,8 +76,16 @@ export async function getLeaseAlerts(): Promise<LeaseAlert[]> {
   const querySnapshot = await getDocs(q);
   const results: LeaseAlert[] = [];
   querySnapshot.forEach((docSnap) => {
-    const data = docSnap.data() as LeaseAlertDoc;
-    results.push({ id: docSnap.id, ...data });
+    const raw = docSnap.data() as LeaseAlertDoc;
+    const data: LeaseAlert = {
+      id: docSnap.id,
+      ...raw,
+      leaseStart: toDate(raw.leaseStart),
+      leaseEnd: toDate(raw.leaseEnd),
+      createdAt: toDate(raw.createdAt),
+      updatedAt: toDate(raw.updatedAt),
+    };
+    results.push(data);
   });
   return results;
 }

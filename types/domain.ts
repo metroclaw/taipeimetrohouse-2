@@ -35,19 +35,19 @@ export interface WorkOrderAlert {
 
 export interface LeaseAlert {
   id: string;
+  propertyId: string;
+  leaseId: string;
   tenantName: string;
   status: 'active' | 'expiringSoon' | 'expired' | 'renewed';
-  leaseId?: string;
-  propertyId?: string;
+  leaseStart: Date;
+  leaseEnd: Date;
+  alertSent: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  // 額外供前端顯示使用的欄位（非 README 主鍵結構）
   propertyName?: string;
   roomCode?: string;
-  leaseStart?: string | Date;
-  leaseEnd?: string | Date;
-  endDate?: string;
   monthlyRent?: number;
-  alertSent?: boolean;
-  createdAt?: Date;
-  updatedAt?: Date;
 }
 
 export interface SummaryMetric {
