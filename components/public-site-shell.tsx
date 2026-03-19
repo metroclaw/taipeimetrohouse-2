@@ -5,6 +5,7 @@ const publicNavItems = [
   { href: '/', label: '首頁' },
   { href: '/about', label: '公司簡介' },
   { href: '/room-types', label: '房型介紹' },
+  { href: '/register', label: '建立帳號' },
   { href: '/login', label: '登入' },
 ];
 

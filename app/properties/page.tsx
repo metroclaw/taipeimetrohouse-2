@@ -5,6 +5,11 @@ import { SectionPanel } from '@/components/section-panel';
 import { properties } from '@/lib/mock-data';
 
 export default function PropertiesPage() {
+  const totalProperties = properties.length;
+  const totalRooms = properties.reduce((sum, p) => sum + p.rooms, 0);
+  const totalVacantRooms = properties.reduce((sum, p) => sum + p.vacantRooms, 0);
+  const maintenanceProperties = properties.filter((p) => p.status === 'maintenance').length;
+
   return (
     <ProtectedPage>
       <AppShell>
@@ -15,6 +20,25 @@ export default function PropertiesPage() {
         />
 
         <SectionPanel title="房源總覽" description="MVP 先驗證卡片資訊量與搜尋欄位，不急著做複雜編輯器。">
+          <ul className="stat-list" aria-label="房源統計">
+            <li>
+              <span>管理房源</span>
+              <strong>{totalProperties} 棟</strong>
+            </li>
+            <li>
+              <span>總房間數</span>
+              <strong>{totalRooms} 間</strong>
+            </li>
+            <li>
+              <span>空房數</span>
+              <strong>{totalVacantRooms} 間</strong>
+            </li>
+            <li>
+              <span>維修中</span>
+              <strong>{maintenanceProperties} 棟</strong>
+            </li>
+          </ul>
+
           <div className="property-grid">
             {properties.map((property) => (
               <article key={property.id} className="property-card">

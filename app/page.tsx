@@ -1,49 +1,55 @@
-import { PublicSiteShell } from '@/components/public-site-shell';
-import { MetricCard } from '@/components/metric-card';
+import Link from 'next/link';
+
 import { ModuleCard } from '@/components/module-card';
-import { PageHeader } from '@/components/page-header';
-import { SectionPanel } from '@/components/section-panel';
-import { dashboardSummary, modules, operationsMetrics } from '@/lib/mock-data';
+import { PublicSiteShell } from '@/components/public-site-shell';
+import { modules } from '@/lib/mock-data';
 
 export default function HomePage() {
-  const internalModules = modules.filter((module) =>
-    ['dashboard', 'properties', 'tasks', 'leases'].includes(module.slug),
-  );
+  const mvpModules = modules.filter((module) => module.status === 'mvp');
+  const upcomingModules = modules.filter((module) => module.status !== 'mvp');
 
   return (
     <PublicSiteShell>
-      <PageHeader
-        eyebrow="Taipei Metro House 2"
-        title="先把物業營運流程拉直，再談自動化"
-        description="這一版專案先重整房源、租約、工單與提醒邏輯，讓日常營運在同一個節奏裡看得懂、接得住。"
-      />
-
-      <SectionPanel title="目前營運快照" description="先用假資料把節奏感做出來，後續再接正式 Firebase 資料層。">
-        <div className="metric-grid">
-          {dashboardSummary.map((metric) => (
-            <MetricCard key={metric.label} metric={metric} />
-          ))}
+      <section className="marketing-hero">
+        <p className="eyebrow">跨房源 / 租約 / 任務的營運主控台</p>
+        <h1>把房源、租約、工單串起來的核心殼</h1>
+        <p className="hero-copy">
+          README 裡提到的所有路由都已經在這裡就位：公開頁先說清楚定位，登入後則回到內部模組，
+          讓房源、任務與租約流程共享同一套語言。下方的模組卡片就是最快速的入口。
+        </p>
+        <div className="hero-actions">
+          <Link className="primary-button" href="/login">
+            登入內部系統
+          </Link>
+          <Link className="ghost-button" href="/register">
+            建立帳號
+          </Link>
         </div>
-      </SectionPanel>
+      </section>
 
-      <SectionPanel
-        title="核心模組入口"
-        description="登入後會進到內部營運區，從儀表板延伸到房源、工單與租約提醒。"
-      >
+      <section className="section-block">
+        <div className="section-heading">
+          <h2>目前 MVP 模組</h2>
+          <p>直接連到 README 中列出的 /dashboard /properties /tasks /leases /settings 等路由。</p>
+        </div>
         <div className="module-grid">
-          {internalModules.map((module) => (
+          {mvpModules.map((module) => (
             <ModuleCard key={module.slug} module={module} />
           ))}
         </div>
-      </SectionPanel>
+      </section>
 
-      <SectionPanel title="今天先處理哪些事？" description="把工單與租約節奏拉在一起看，避免漏掉逾期與到期。">
-        <div className="metric-grid">
-          {operationsMetrics.map((metric) => (
-            <MetricCard key={metric.label} metric={metric} />
+      <section className="section-block">
+        <div className="section-heading">
+          <h2>接下來要上的模組</h2>
+          <p>還在規劃中的頁面也先曝光路由，方便日後直接串接與測試。</p>
+        </div>
+        <div className="module-grid">
+          {upcomingModules.map((module) => (
+            <ModuleCard key={module.slug} module={module} />
           ))}
         </div>
-      </SectionPanel>
+      </section>
     </PublicSiteShell>
   );
 }

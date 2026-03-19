@@ -38,6 +38,15 @@ input {
   color: var(--text);
 }
 
+select {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--text);
+  font: inherit;
+}
+
 button {
   border: 0;
   cursor: pointer;
@@ -46,8 +55,8 @@ button {
 .public-shell {
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(196, 118, 74, 0.16), transparent 24%),
-    linear-gradient(180deg, #f6efe2 0%, #eef2ea 52%, #e8eee7 100%);
+    radial-gradient(circle at top left, rgba(196, 118, 74, 0.12), transparent 26%),
+    linear-gradient(180deg, #f7f5f0 0%, #eef2ea 52%, #e8eee7 100%);
 }
 
 .public-header {
@@ -93,11 +102,14 @@ button {
 
 .public-main {
   padding: 28px 32px 40px;
+  max-width: 960px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
 }
 
 .marketing-hero {
   padding: 28px 0 8px;
-  max-width: 880px;
+  max-width: 720px;
 }
 
 .legacy-hero {
@@ -168,9 +180,9 @@ button {
 .shell {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 260px minmax(0, 1fr);
   background:
-    radial-gradient(circle at top left, rgba(196, 118, 74, 0.14), transparent 28%),
+    radial-gradient(circle at top left, rgba(196, 118, 74, 0.16), transparent 30%),
     linear-gradient(180deg, #f4f0e5 0%, #eef2ea 48%, #e7ede4 100%);
 }
 
@@ -243,7 +255,10 @@ button {
 }
 
 .main {
-  padding: 32px;
+  padding: 32px 36px 40px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .page-header h1,
@@ -297,6 +312,19 @@ button {
   border-radius: 24px;
   box-shadow: var(--shadow);
   backdrop-filter: blur(12px);
+}
+
+/* 公開站內容：更像 Notion 文件，陰影與圓角較淡 */
+.public-main .section-block,
+.public-main .module-card,
+.public-main .metric-card,
+.public-main .mini-card,
+.public-main .hero-panel {
+  background: #ffffff;
+  border-radius: 18px;
+  border-color: #e3e7dd;
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
+  backdrop-filter: none;
 }
 
 .hero-panel {
@@ -386,6 +414,36 @@ button {
 
 .metric-card.warn strong { color: var(--warn); }
 .metric-card.good strong { color: var(--ok); }
+
+/* 後台統計區塊：更有 dashboard 卡片感 */
+.stat-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.stat-list li {
+  background: var(--panel-strong);
+  border-radius: 18px;
+  padding: 12px 14px;
+  border: 1px solid rgba(216, 221, 206, 0.9);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-list span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.stat-list strong {
+  font-size: 1.4rem;
+  line-height: 1.1;
+}
 
 .split-grid {
   display: grid;
@@ -507,6 +565,45 @@ button {
   margin-bottom: 8px;
 }
 
+.inline-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.inline-list li {
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: var(--panel-strong);
+  border: 1px solid rgba(216, 221, 206, 0.8);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.inline-list strong {
+  font-size: 0.98rem;
+}
+
+.inline-list span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.section-footer {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.primary-link {
+  color: var(--brand);
+  font-weight: 700;
+}
+
 .callout {
   margin-top: 24px;
 }
@@ -575,6 +672,98 @@ button {
   margin: 0;
 }
 
+/* About（公開站）更精緻的版面 */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 24px;
+  align-items: start;
+  margin-top: 8px;
+}
+
+.about-main {
+  display: grid;
+  gap: 12px;
+}
+
+.about-logo {
+  border-radius: 18px;
+  border: 1px solid rgba(216, 221, 206, 0.9);
+}
+
+.about-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+/* 後台清單（table-like）排版 */
+.table-meta-left {
+  justify-content: flex-start;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  border: 1px solid rgba(216, 221, 206, 0.9);
+  white-space: nowrap;
+}
+
+.status-pending,
+.status-pending.status-pill {
+  background: #f1f3f2;
+  color: #566058;
+}
+
+.status-inProgress {
+  background: #dae9f8;
+  color: #2a5d8f;
+}
+
+.status-completed {
+  background: #daefe1;
+  color: #2c6b4f;
+}
+
+.status-cancelled {
+  background: #fde3d6;
+  color: #9c552f;
+}
+
+.status-active {
+  background: #daefe1;
+  color: #2c6b4f;
+}
+
+.status-expiringSoon {
+  background: #f7e5ba;
+  color: #8b5b10;
+}
+
+.status-expired {
+  background: #fde3d6;
+  color: #9c552f;
+}
+
+.status-renewed {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.status-select {
+  min-width: 190px;
+}
+
+/* section-heading 讓文案更像「文件區塊」 */
+.section-heading {
+  display: grid;
+  gap: 8px;
+}
+
 @media (max-width: 980px) {
   .shell,
   .hero,
@@ -583,13 +772,26 @@ button {
   .mini-grid,
   .property-grid,
   .split-grid,
-  .auth-layout {
+  .auth-layout,
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-pillars {
     grid-template-columns: 1fr;
   }
 
   .sidebar {
     border-right: 0;
     border-bottom: 1px solid var(--line);
+  }
+
+  .stat-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .inline-list {
+    grid-template-columns: 1fr;
   }
 
   .table-row {

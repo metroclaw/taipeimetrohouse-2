@@ -1,23 +1,22 @@
-"use client";
+'use client';
+
 import Link from 'next/link';
-import React from 'react';
 
 import { AppShell } from '@/components/app-shell';
+import { MetricCard } from '@/components/metric-card';
 import { PageHeader } from '@/components/page-header';
 import { ProtectedPage } from '@/components/protected-page';
 import { SectionPanel } from '@/components/section-panel';
 import { useAlertContext } from '@/context/AlertContext';
+import { dashboardSummary, operationsMetrics } from '@/lib/mock-data';
 
-const DashboardPage: React.FC = () => {
+export default function DashboardPage() {
   const { workOrders, leaseAlerts } = useAlertContext();
 
-  const countByStatus = (items: { status: string }[], statuses: string[]) =>
-    items.filter((item) => statuses.includes(item.status)).length;
-
-  const pendingWorkOrders = workOrders.filter((w) => w.status === 'pending').slice(0, 5);
-  const expiringLeases = leaseAlerts
-    .filter((l) => l.status === 'expiringSoon')
-    .slice(0, 5);
+  const pendingWorkOrders = workOrders.filter((order) => order.status === 'pending').length;
+  const inProgressWorkOrders = workOrders.filter((order) => order.status === 'inProgress').length;
+  const expiringLeases = leaseAlerts.filter((alert) => alert.status === 'expiringSoon').length;
+  const expiredLeases = leaseAlerts.filter((alert) => alert.status === 'expired').length;
 
   return (
     <ProtectedPage>
@@ -25,117 +24,58 @@ const DashboardPage: React.FC = () => {
         <PageHeader
           eyebrow="Dashboard"
           title="提醒總覽"
-          description="把今日待辦工單與即將到期租約放在同一個視野裡，先確保不漏掉關鍵節點。"
+          description="把 README 列出的核心模組串在一起：登入後第一個落點就是這個儀表板，後續再延伸到任務、房源與租約。"
         />
 
-        <SectionPanel
-          title="工單狀態統計"
-          description="先用簡單狀態統計看今天工單的壓力，後續再補圖表與篩選器。"
-        >
-          <ul className="stat-list">
-            <li>
-              <span>待處理</span>
-              <strong>{countByStatus(workOrders, ['pending'])}</strong>
-            </li>
-            <li>
-              <span>進行中</span>
-              <strong>{countByStatus(workOrders, ['inProgress'])}</strong>
-            </li>
-            <li>
-              <span>已完成</span>
-              <strong>{countByStatus(workOrders, ['completed'])}</strong>
-            </li>
-            <li>
-              <span>已取消</span>
-              <strong>{countByStatus(workOrders, ['cancelled'])}</strong>
-            </li>
-          </ul>
-          <div className="section-footer">
-            <Link href="/tasks" className="text-link">
-              前往工單中心查看全部工單
-            </Link>
+        <SectionPanel title="營運指標" description="靜態 mock 數字，主打資訊設計與資料欄位布局。">
+          <div className="metric-grid">
+            {dashboardSummary.map((metric) => (
+              <MetricCard key={metric.label} metric={metric} />
+            ))}
           </div>
         </SectionPanel>
 
-        <SectionPanel
-          title="租約狀態統計"
-          description="把正常、即將到期與已過期分開看，幫助安排續租與退房節奏。"
-        >
-          <ul className="stat-list">
-            <li>
-              <span>正常中</span>
-              <strong>{countByStatus(leaseAlerts, ['active'])}</strong>
-            </li>
-            <li>
-              <span>即將到期</span>
-              <strong>{countByStatus(leaseAlerts, ['expiringSoon'])}</strong>
-            </li>
-            <li>
-              <span>已過期</span>
-              <strong>{countByStatus(leaseAlerts, ['expired'])}</strong>
-            </li>
-            <li>
-              <span>已續約</span>
-              <strong>{countByStatus(leaseAlerts, ['renewed'])}</strong>
-            </li>
-          </ul>
-          <div className="section-footer">
-            <Link href="/leases" className="text-link">
-              前往租約提醒查看全部租約
-            </Link>
+        <SectionPanel title="每日節奏" description="第二組指標示意，利於在 README 指定的維度上擴充。">
+          <div className="metric-grid">
+            {operationsMetrics.map((metric) => (
+              <MetricCard key={metric.label} metric={metric} />
+            ))}
           </div>
         </SectionPanel>
 
-        <SectionPanel
-          title="待辦工單一覽"
-          description="先列出幾筆最急的待處理工單，詳細內容再進工單中心處理。"
-        >
-          {pendingWorkOrders.length === 0 ? (
-            <p>目前沒有待處理工單。</p>
-          ) : (
-            <ul className="inline-list">
-              {pendingWorkOrders.map((order) => (
-                <li key={order.id}>
-                  <strong>{order.description}</strong>
-                  <span>{order.assignedTo}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-          <div className="section-footer">
-            <Link href="/tasks" className="primary-link">
-              打開工單中心
-            </Link>
-          </div>
-        </SectionPanel>
-
-        <SectionPanel
-          title="即將到期租約"
-          description="抓出近期要到期的租約，先安排續約與退房流程。"
-        >
-          {expiringLeases.length === 0 ? (
-            <p>目前沒有即將到期的租約。</p>
-          ) : (
-            <ul className="inline-list">
-              {expiringLeases.map((lease) => (
-                <li key={lease.id}>
-                  <strong>{lease.tenantName}</strong>
-                  <span>
-                    {lease.propertyName} {lease.roomCode}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
-          <div className="section-footer">
-            <Link href="/leases" className="primary-link">
-              打開租約提醒
-            </Link>
+        <SectionPanel title="即時提醒" description="即時數字來自 AlertContext，方便直接跳轉到 Task 與 Lease 頁面。">
+          <div className="mini-grid">
+            <article className="mini-card">
+              <strong>待處理工單</strong>
+              <p>{pendingWorkOrders} 件</p>
+              <Link className="text-link" href="/tasks">
+                打開工單中心
+              </Link>
+            </article>
+            <article className="mini-card">
+              <strong>進行中工單</strong>
+              <p>{inProgressWorkOrders} 件</p>
+              <Link className="text-link" href="/tasks">
+                查看進度
+              </Link>
+            </article>
+            <article className="mini-card">
+              <strong>即將到期租約</strong>
+              <p>{expiringLeases} 份</p>
+              <Link className="text-link" href="/leases">
+                安排續租
+              </Link>
+            </article>
+            <article className="mini-card">
+              <strong>已過期租約</strong>
+              <p>{expiredLeases} 份</p>
+              <Link className="text-link" href="/leases">
+                追蹤逾期
+              </Link>
+            </article>
           </div>
         </SectionPanel>
       </AppShell>
     </ProtectedPage>
   );
-};
-
-export default DashboardPage;
+}
