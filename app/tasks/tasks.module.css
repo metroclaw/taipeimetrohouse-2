@@ -1,0 +1,147 @@
+/* tasks.module.css */
+
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.pageTitle {
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: #5a5c69;
+  margin: 0;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -0.75rem;
+  margin-left: -0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.colXl3 {
+  position: relative;
+  width: 100%;
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .colXl3 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .colXl3 {
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+}
+
+/* For 5 items it's 20% width on XL */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #e3e6f0;
+  border-radius: 0.35rem;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+  height: 100%;
+}
+
+.borderLeftPrimary { border-left: 0.25rem solid #4e73df !important; }
+.borderLeftWarning { border-left: 0.25rem solid #f6c23e !important; }
+.borderLeftInfo    { border-left: 0.25rem solid #36b9cc !important; }
+.borderLeftSuccess { border-left: 0.25rem solid #1cc88a !important; }
+.borderLeftDanger  { border-left: 0.25rem solid #e74a3b !important; }
+
+.py2 {
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+}
+
+.cardBody {
+  flex: 1 1 auto;
+  padding: 1.25rem;
+}
+
+.rowNoGutters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.col {
+  flex-basis: 0;
+  flex-grow: 1;
+  max-width: 100%;
+}
+
+.textXs {
+  font-size: 0.7rem;
+}
+
+.fontWeightBold {
+  font-weight: 700 !important;
+}
+
+.textUppercase {
+  text-transform: uppercase !important;
+}
+
+.mb1 {
+  margin-bottom: 0.25rem !important;
+}
+
+.textPrimary { color: #4e73df !important; }
+.textWarning { color: #f6c23e !important; }
+.textInfo    { color: #36b9cc !important; }
+.textSuccess { color: #1cc88a !important; }
+.textDanger  { color: #e74a3b !important; }
+
+.h5 {
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.textGray800 { color: #5a5c69 !important; }
+
+/* Table Wrapper Card Specific Styling */
+.tableCard {
+  background-color: #fff;
+  border: 1px solid #e3e6f0;
+  border-radius: 0.35rem;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+  margin-bottom: 1.5rem;
+}
+
+.tableCardHeader {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: #f8f9fc;
+  border-bottom: 1px solid #e3e6f0;
+}
+
+.tableCardTitle {
+  margin: 0;
+  font-weight: 700;
+  color: #4e73df;
+}
+
+.tableCardBody {
+  padding: 1.25rem;
+}

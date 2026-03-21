@@ -1,0 +1,125 @@
+/* app-shell.module.css */
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8f9fc;
+}
+
+.sidebar {
+  width: 14rem;
+  background-color: #4e73df;
+  background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+  background-size: cover;
+  transition: all 0.15s;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarBrand {
+  height: 4.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  letter-spacing: 0.05rem;
+}
+
+.sidebarBrandIcon {
+  transform: rotate(-15deg);
+  margin-right: 0.5rem;
+}
+
+.sidebarDivider {
+  margin: 0 1rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  margin: 0 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: 0.35rem;
+  transition: all 0.2s;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.navItem:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.contentWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.topbar {
+  height: 4.375rem;
+  background-color: #fff;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.userName {
+  color: #858796;
+  font-size: 0.875rem;
+}
+
+.logoutBtn {
+  color: #fff;
+  background-color: #4e73df;
+  border-color: #4e73df;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.logoutBtn:hover {
+  background-color: #2e59d9;
+  border-color: #2653d4;
+}
+
+.containerFluid {
+  padding: 0 1.5rem;
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 6.5rem;
+  }
+  .sidebarBrandText {
+    display: none;
+  }
+  .sidebarBrandIcon {
+    margin-right: 0;
+    font-size: 1.5rem;
+  }
+  .navItem {
+    justify-content: center;
+  }
+}

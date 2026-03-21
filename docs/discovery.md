@@ -7,7 +7,7 @@
 ### 對外網站
 - 公司形象首頁
 - 服務項目與聯絡資訊展示
-- 管理系統登入入口
+- 管理系統／使用者分類 登入入口
 
 ### 帳號與存取
 - 登入 / 註冊
@@ -104,8 +104,9 @@
 - id
 - name
 - email
-- phone
-- role (`admin`, `manager`, `staff`, `cleaner`, `maintenance`)
+- phone1
+- phone2
+- role (`superadmin`, `maintenance`, `cleaner`, `staff`, `tenant`)
 - status
 - createdAt
 
